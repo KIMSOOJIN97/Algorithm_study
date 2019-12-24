@@ -1,0 +1,48 @@
+#include <iostream>
+#include <algorithm> //sort함수 사용을 위해
+#include <string> //string 자료형 사용을 위해
+#include <vector> //vector 사용을 위해
+using namespace std;
+
+bool cmp(string u, string v) { //sort
+	if (u.size() != v.size()) { //길이가 다르다면
+		if (u.size() < v.size())
+			return true;
+		else
+			return false;
+	}
+	else { //길이가 같다면
+		int u_sum = 0, v_sum = 0;
+		for (int i = 0; i < u.size(); i++) {//모든 자리수의 합을 비교(숫자만 더함)
+			if(u[i] >'0' && u[i] <= '9')
+				u_sum += (u[i] - '0');
+		}
+		for (int i = 0; i < v.size(); i++) {
+			if (v[i] > '0' && v[i] <= '9')
+				v_sum += (v[i] - '0');
+		}
+		if (u_sum < v_sum)
+			return true;
+		else if (u_sum == v_sum) {
+			if (u < v) //1,2 조건으로 비교할 수 없으면 사전순으로 비교
+				return true;
+			else //swap
+				return false;
+		}
+		else //swap
+			return false;
+	}
+}
+int main() {
+	int N;
+	cin >> N;
+	vector<string>se_num(N); //N개의 기타
+
+	for (int i = 0; i < N; i++)
+		cin >> se_num[i]; //입력
+	sort(se_num.begin(), se_num.end(), cmp);
+	for (int i = 0; i < N; i++)
+		cout << se_num[i] << "\n";
+
+	cin >> N;
+}
