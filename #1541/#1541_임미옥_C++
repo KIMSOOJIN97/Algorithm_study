@@ -1,0 +1,28 @@
+#include <cstdio>
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	bool negative = false;
+	char ch;
+	int sum, next;
+
+	// input
+	scanf("%d", &sum);
+	while (true) {
+		scanf("%c", &ch);
+		scanf("%d", &next);
+
+		if (ch == '-') negative = true;
+		else if (ch != '+') break;
+
+		if (negative) sum -= next;
+		else sum += next;
+	}
+
+	// output
+	cout << sum <<"\n";
+
+	return 0;
+}
