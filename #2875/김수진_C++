@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+int main(void)
+{
+	int N, M, K;
+
+	cin >> N >> M >> K;
+
+	int team=N/2; // number of team
+
+	while (1) {
+		if (team > M)
+			team--;
+		else
+			break;
+	}
+
+	while (1) {
+		int num = N + M - team * 3;
+		if (num < K || num<0)
+			team--;
+		else
+			break;
+	}
+
+	cout << team << " ";
+	
+	return 0;
+}
