@@ -1,0 +1,47 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+class person
+{
+public:
+	int score1;
+	int score2;
+
+	bool operator <(person& p) {
+		return this->score1 < p.score1;
+	}
+};
+
+int main()
+{
+
+	int t_case; // number of test case 
+	cin >> t_case;
+	for (int i = 0; i < t_case; i++){
+
+		int N;
+		cin >> N; // number of person
+
+		person* p = new person[N];
+
+		for (int j = 0; j < N; j++) 
+			cin >> p[j].score1 >> p[j].score2;
+
+		int pass = 0; //number of pass person
+
+		sort(p, p + N); // sorting by score1
+	
+		for (int j = N-1; j >= 1; j--) {
+			for (int k = j-1; k >= 0; k--) {
+				if (p[j].score2 > p[k].score2)
+					break;
+				if (k == 0)
+					pass ++ ;
+			}
+		}
+		pass++; // 1순위
+		cout << pass << "\n";
+	}
+}
