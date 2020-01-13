@@ -1,0 +1,57 @@
+#include <iostream>
+
+using namespace std;
+int N;
+int A[11]; //최대 11개까지의 순열이니까
+int oper[4]; //연산자 4개
+int _min = 1100000001;
+int _max = -1100000001;
+
+void ref(int num, int count) { //재귀함수 부를때마다 전에 연산했던 값을 저장 하는 변수가 num, count는 이때까지 몇번 연산했는지 저장하는 변수
+
+	if (count == N) {
+		if (_min > num)
+			_min = num;
+		if (_max < num)
+			_max = num;
+	}
+
+	for (int i = 0; i < 4; i++) {
+		if (oper[i]) {
+			oper[i]--; //연산을 다 한 후
+			switch (i)
+			{
+			case 0: //덧셈
+				ref(num + A[count], count + 1);
+				break;
+			case 1://뺄셈
+				ref(num - A[count], count + 1);
+				break;
+			case 2://곱셈
+				ref(num * A[count], count + 1);
+				break;
+			case 3://나눗셈
+				ref(num /A[count], count + 1);
+				break;
+			default:
+				break;
+			}
+			oper[i]++; //연산을 아무것도 안 한 초기상태
+		}
+	}
+	
+}
+int main() {
+
+	/////////// input /////////////
+
+	cin >> N;
+	for (int i = 0; i < N; i++)
+		cin >> A[i];
+	for (int i = 0; i < 4; i++)
+		cin >> oper[i];
+	///////////////////////////////
+	ref(A[0], 1); //첫번째 피연산자와 연산을 몇번했는지 count해줄 값
+	cout << _max << "\n" << _min;
+	return 0;
+}
