@@ -1,0 +1,53 @@
+#include <cstdio>
+#include <queue>
+#include <iostream>
+
+using namespace std;
+int map[101][101];//최대 100x100이니까
+bool visit[101][101] = { false }; //방문한 곳
+int dx[4] = { -1,0,1,0 };
+int dy[4] = { 0,-1,0,1 };
+int N, M;
+void bfs() {
+	queue<pair<pair<int, int>, int> >q;
+	q.push(make_pair(make_pair(0, 0), 1)); //시작 인덱스와 카운터값
+	visit[0][0] = true;
+
+	while (!q.empty()) { //queue가 빌 때까지
+        int qSize = q.size();
+		for (int i = 0; i<qSize; i++) {
+		int x = q.front().first.second; //열
+		int y = q.front().first.first; //행
+		int count = q.front().second; //이동 횟수
+		if (x == M - 1 && y == N - 1) { //도착점에 도달시 출력
+			cout << count;
+			return;
+		}
+		q.pop(); //queue에서 제거
+		for (int i = 0; i < 4; i++) {
+			int nx = x + dx[i]; //다음 이동할 x 위치 업데이트
+			int ny= y + dy[i];
+			if (nx < 0 || ny < 0 || nx >= M || ny >= N) //벽에 부딪힌다면
+				continue;
+			else if (visit[ny][nx]) //이미 방문했다면
+				continue;
+			else if (map[ny][nx] == 0) //0을 만나면
+				continue;
+			else {
+				q.push(make_pair(make_pair(ny, nx), count + 1));
+				visit[ny][nx] = true;
+			}
+		}
+        }
+	}
+}
+
+int main() {
+	
+	scanf("%d %d", &N, &M);
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
+			scanf("%1d", &map[i][j]);
+	bfs();
+	return 0;
+}
