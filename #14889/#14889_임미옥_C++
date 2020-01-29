@@ -1,0 +1,51 @@
+#include <iostream>
+
+//N은 짝수, 반은 스타트 링크, 반은 링크 팀
+//DFS문제
+// 이미 선택이 완료된 팀은 제외
+// 팀을 다 이룬 뒤에도 재귀함수를 통해 능력치 계산
+using namespace std;
+
+int N;
+int _min = 101;
+int S[20][20];
+int start_sum = 0;
+int link_sum = 0;
+int check[20] = { false }; //선택이 당했는지 체크
+
+void Temp_DFS(int start_count, int num) { //몇 명 선택했는지 카운트 하는 값, 스타트와 링크 능력치 차이 반환(절댓값으로 평가)
+
+	if (start_count == N / 2) { //팀 다 채웠을 때
+		start_sum = 0;
+		link_sum = 0;
+		for (int j = 0; j < N; j++) {
+			for (int k = 0; k < N; k++) {
+				if (check[j] && check[k]) start_sum += S[j][k]; //start팀 능력치 합
+				if (!check[j] && !check[k]) link_sum += S[j][k]; //link팀 능력치 합
+			}
+		}
+		int result =  abs(start_sum - link_sum);
+		_min = _min > result ? result : _min;
+		return;
+	}
+
+	for (int i = num; i < N; i++) { //N번 돌리면서 팀 채우기 
+		if (!check[i]) {
+			check[i] = true;
+			Temp_DFS(start_count+1, i+1);
+			check[i] = false;
+		}
+	}
+}
+
+int main() {
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> S[i][j]; // 팀의 능력치 저장하는 배열
+		}
+	}
+	
+	Temp_DFS(0,0);
+	cout << _min;
+}
