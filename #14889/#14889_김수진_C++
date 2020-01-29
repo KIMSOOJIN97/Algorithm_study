@@ -1,0 +1,85 @@
+
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+const int MAX = 20;
+int arr[MAX][MAX];
+
+int N;
+int check[MAX]={0,};
+int min_score=9999999;
+int cnt;
+
+void score()
+{
+    int link=0,start=0; // score
+    int minus=0;
+    
+    for(int i=0; i<N;i++){
+        if(check[i]==1)
+        {
+            for(int j=0;j<N;j++){
+                if(check[j]==1)
+                    start+=arr[i][j];
+            }
+        }
+        else// if check is.
+        {
+            for(int j=0;j<N;j++){
+                if(check[j]==0)
+                    link+=arr[i][j];
+            }
+        }
+    }
+    
+    if(start >= link)
+        minus = start - link;
+    else
+        minus = link - start;
+    
+    if( min_score > minus)
+        min_score = minus;
+}
+
+void DFS(int idx)
+{
+    cnt+=1;
+    
+    for ( int i = idx+1 ; i < N/2+cnt ; i++){
+        check[i]=1;
+        
+        if(cnt ==  N /2)
+            score();
+        else
+            DFS(i);
+        
+        check[i]=0;
+    }
+    cnt-=1;
+}
+
+int main(void)
+{
+    
+    cin >> N;
+    
+    for(int i=0;i<N;i++){
+        for(int j=0;j<N;j++)
+            scanf("%d",&arr[i][j]);
+    }
+    
+    cnt =0;
+    
+    for(int i=0;i<N/2;i++){
+        cnt++;
+        check[i]=1;
+        DFS(i);
+        check[i]=0;
+        cnt--;
+    }
+    cout << min_score << "\n";
+    
+    return 0;
+}
