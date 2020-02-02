@@ -1,0 +1,50 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+int N;
+int map[25][25]; //최대 25
+int dx[4] = { 0,-1,0,1 };
+int dy[4] = { -1,0,1,0 };
+int store[25];
+int visit[25][25] = { false };
+int group_count = 0;
+int apart_count = 0;
+void group_DFS(int _dx, int _dy) {
+    visit[_dy][_dx] = true; //방문 체크
+	group_count++;
+	for (int k = 0; k < 4; k++) {
+		int __dx = _dx + dx[k];
+		int __dy = _dy + dy[k];
+		if (__dx >= 0 && __dx < N && __dy >= 0 && __dy < N) { //범위를 벗어나지 않는다면
+			if (map[__dy][__dx] == 1 && !visit[__dy][__dx]) { //이웃한 사람이 있고, 방문하지 않았다면
+				group_DFS(__dx, __dy);
+			}
+		}
+	}
+}
+int main() {
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			scanf("%1d", &map[i][j]);
+		}
+	}
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			if (map[i][j] == 1 && !visit[i][j]) {
+				group_count = 0; //초기화 
+				group_DFS(j, i); //y, x
+				store[apart_count] = group_count;
+				apart_count++;
+			}
+		}
+	}
+	sort(store, store + apart_count);
+	printf("%d\n", apart_count);
+	for (int i = 0; i < apart_count; i++) {
+		printf("%d\n", store[i]);
+	}
+	
+	
+}
