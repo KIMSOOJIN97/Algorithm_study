@@ -1,0 +1,90 @@
+#include <iostream>
+#include <stdio.h>
+#include <vector>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+int dx[4] = {1,0,-1,0};
+int dy[4] = {0,1,0,-1};
+
+int arr[25][25];
+int N;
+int num; // number of group
+
+int main()
+{
+    cin >> N;
+    
+    queue <pair<int,int>> q;
+    num=1;
+    
+    for (int i=0;i<N;i++)
+    {
+        for (int j=0;j<N;j++)
+        {
+            scanf("%1d",&arr[i][j]);
+        }
+    }
+
+    
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<N;j++)
+        {
+            if( arr [i][j] == 1 )
+            {
+                num+=1;
+                arr[i][j] = num;
+                
+                q.push(make_pair(i,j));
+                       
+                while(!q.empty()){
+                    int x = q.front().first;
+                    int y = q.front().second;
+                    
+                    q.pop();
+                
+                    for( int k=0;k<4;k++)
+                    {
+                        
+                        int nx = x + dx[k];
+                        int ny = y + dy[k];
+                        
+                        if (arr[nx][ny]==1)
+                        {
+                            arr[nx][ny]=num;
+                            
+                            q.push(make_pair(nx,ny));
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    num--;
+    
+    int *num_of_unit= new int[num-1];
+    num_of_unit[num-1] ={0,};
+
+    for(int i=0;i<N;i++){
+        for(int j=0;j<N;j++){
+            if(arr[i][j]!=0 && arr[i][j]!=1){
+                int idx = arr[i][j]-2;
+                num_of_unit[idx]++;
+            }
+        }
+        
+    }
+    
+    sort(num_of_unit,num_of_unit+num);
+    cout << num << "\n";
+    
+    for(int i=0;i<num; i++)
+        cout << num_of_unit[i] <<"\n";
+    
+    return 0;
+}
