@@ -1,9 +1,9 @@
 # Algorithm_study
 
-This repository is Algorithm study fo Kwangwoon University.
+This repository is for the Algorithm study 
 
 ## Member
 
-* 광운대학교 임미옥
-* 광운대학교 김수진
-* 광운대학교 정명근
+* 임미옥
+* 김수진
+* 정명근
