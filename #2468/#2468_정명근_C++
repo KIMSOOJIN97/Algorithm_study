@@ -2,7 +2,7 @@
 // title : 백준 2468 - 안전 영역 (DFS,BFS)
 // date : 2020.02.07
 // writer : jeong
-// result : 아니... 다 1인 경우 왜 1이지? 아직도 이해는 안가지만 맞음... 
+// result : 아니... 다 1인 경우 왜 1이지? 아직도 이해는 안가지만 맞음... -> 비가 안오는 경우도 
 // 실수   : 물에 안잠긴곳을 세야지, 물에 잠긴곳을 세고 있었다... 하...
 // problem : https://www.acmicpc.net/problem/2468
 // reference : 
