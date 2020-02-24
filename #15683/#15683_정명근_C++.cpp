@@ -112,3 +112,4 @@ int main() {
 	cout << min_safe_area;
 	return 0;
 }
+//
