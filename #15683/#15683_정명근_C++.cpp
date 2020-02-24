@@ -3,7 +3,7 @@
 // date : 2020.02.24
 // writer : jeong
 // result : 참고함.. DFS 진짜 너무 어렵다... DFS로 조합하는거..
-// problem : https://www.acmicpc.net/problem/14501
+// problem : https://www.acmicpc.net/problem/15683
 // reference : https://jaimemin.tistory.com/1070
 /////////////////////////////////////////////////////////////
 
@@ -112,4 +112,4 @@ int main() {
 	cout << min_safe_area;
 	return 0;
 }
-//
+////
