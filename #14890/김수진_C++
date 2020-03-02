@@ -1,0 +1,134 @@
+#include <iostream>
+
+using namespace std;
+
+int N,L; // size of map , length of slope
+int map[100][100];
+int road=0; //number of road
+
+
+int gap(int num1, int num2)
+{
+    if(num1 > num2 )
+        return num1-num2;
+    else
+        return num2-num1;
+}
+
+void check_row(int idx)
+{
+    int len =1;
+    int i=0;
+    int same = 1;
+    
+    while(i<N-1)
+    {
+        len = 1;
+        
+        int num = gap(map[i][idx] ,map[i+1][idx]);
+        
+        if(num > 1)
+            return;
+        
+        if(map[i][idx] != map[i+1][idx]){ //차이가 1인 경우
+            if( map[i][idx] < map[i+1][idx]){
+                if(same < L)
+                    return;
+            }
+            same=1;
+            
+             while(map[i+1][idx] == map[i+2][idx]){
+                len++;
+                i++;
+            }
+            int tmp = i+1-len;
+            if( map[tmp][idx] > map[i+1][idx] && tmp >= 0 && map[tmp][idx] == map[i+2][idx]){
+                if( len % L != 0 || len == L   ) {
+                    return ;
+                }
+            }
+            if(len < L )
+                return;
+            
+            if(len==1 || L==1) // if L is 1
+                i++;
+            else
+                i=i+2;
+        }
+        
+        else{
+            
+            same++;
+            i++;
+        }
+    }
+    road++;
+}
+
+void check_col(int idx)
+{
+    int len =1;
+    int i=0;
+    int same = 1;
+    while(i<N-1)
+    {
+        len = 1;
+        
+        int num = gap(map[idx][i] ,map[idx][i+1]);
+        if(num > 1)
+            return;
+        
+        if(map[idx][i] != map[idx][i+1]){ //차이가 1인 경우
+            if( map[idx][i] < map[idx][i+1]){
+                if(same < L)
+                    return;
+            }
+            same=1;
+            while(map[idx][i+1] == map[idx][i+2]){
+                len++;
+                i++;
+            }
+            int tmp = i+1-len;
+            if(map[idx][tmp] > map[idx][i+1] && tmp >= 0 && map[idx][tmp] == map[idx][i+2]){
+                if( len % L != 0 || len == L   ) {
+                    return;
+                }
+                
+            }
+            if(len < L )
+                return;
+            
+            if(len==1 || L==1) // if L is 1
+                i++;
+            else
+                i=i+2;
+        }
+        else{
+            same++;
+            i++;
+        }
+        
+    }
+    road++;
+}
+
+int main(void)
+{
+    cin >> N >> L;
+    
+    for(int i=0; i<N; i++)
+    {
+        for(int j=0;j<N;j++)
+            cin >> map[i][j];
+    }
+    
+    for(int i=0; i<N; i++)
+    {
+        check_row(i);
+        check_col(i);
+    }
+    
+    cout << road << "\n";
+    
+    return 0;
+}
