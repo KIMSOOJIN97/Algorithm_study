@@ -2,7 +2,7 @@
 // title : 백준 14891 - 톱니바퀴(samsung coding test)
 // date : 2020.01.19
 // writer : jeong
-// result : 
+// result : 실패
 /////////////////////////////////////////////////////////////
 
 #include <iostream>
