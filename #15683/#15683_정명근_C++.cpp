@@ -111,5 +111,5 @@ int main() {
 	DFS(0);
 	cout << min_safe_area;
 	return 0;
-}
+}//
 
